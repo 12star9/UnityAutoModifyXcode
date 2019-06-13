@@ -1,0 +1,6 @@
+framework module EmbeddedFramework1 {
+  umbrella header "EmbeddedFramework1.h"
+
+  export *
+  module * { export * }
+}
