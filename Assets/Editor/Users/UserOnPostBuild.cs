@@ -37,9 +37,48 @@ namespace ThirdSDKPostBuilds
 			pbxProj.ReadFromFile(projPath);
 			string targetGuid = pbxProj.TargetGuidByName("Unity-iPhone");
 
-			pbxProj.SetBuildProperty(targetGuid, "IPHONEOS_DEPLOYMENT_TARGET", "8.0");
+			//Build settings
+			pbxProj.SetBuildProperty(targetGuid, "IPHONEOS_DEPLOYMENT_TARGET", "9.0");
+			pbxProj.SetBuildProperty(targetGuid, "CODE_SIGN_ENTITLEMENTS", "Unity-iPhone/test.entitlements");
 			//pbxProj.SetBuildProperty(targetGuid, "ENABLE_BITCODE", "NO");
 			pbxProj.SetBuildProperty(targetGuid, "CLANG_ENABLE_MODULES", "YES");
+			pbxProj.AddBuildProperty(targetGuid, "OTHER_LDFLAGS", "-ObjC");
+			///Build settings SetTeamId
+			pbxProj.SetTeamId(targetGuid,"73889W623Z");
+			///Build settings ProvisioningProfile
+			IEnumerable<string> configNames=pbxProj.BuildConfigNames();
+			foreach(var configName in configNames)
+			{
+				Debug.Log("configNames:"+configName);
+				string configGuid=pbxProj.BuildConfigByName(targetGuid,configName);
+				string code_sign_identity="iPhone Developer: nanxing liao (H6KAK88X9G)";
+				string provision_profile_name = "StarUnityTest_Dev_ProvisioningProfile";
+				if(configName!="Debug")
+				{
+					code_sign_identity="iPhone Distribution: nanxing liao (73889W623Z)";
+					provision_profile_name="StarUnityTest_Dis_ProvisioningProfile";
+				}
+				pbxProj.SetBuildPropertyForConfig(configGuid,"CODE_SIGN_STYLE","Manual");
+				pbxProj.SetBuildPropertyForConfig(configGuid,"PROVISIONING_PROFILE_SPECIFIER",provision_profile_name);
+				pbxProj.SetBuildPropertyForConfig(configGuid,"CODE_SIGN_IDENTITY",code_sign_identity);
+				pbxProj.SetBuildPropertyForConfig(configGuid,"CODE_SIGN_IDENTITY[sdk=iphoneos*]",code_sign_identity);
+			}
+			///Build settings Capabilities
+			var projCapability = new Users.Custom.ProjectCapabilityManager(projPath, "Unity-iPhone/test.entitlements", "Unity-iPhone");
+			//bug: projCapability.AddGameCenter();
+			//bug: projCapability.AddInAppPurchase();
+			projCapability.AddPushNotifications(true);
+			//bug:pbxProj.AddCapability (targetGuid, Users.Custom.PBXCapabilityType.GameCenter);
+   			pbxProj.AddCapability (targetGuid, Users.Custom.PBXCapabilityType.InAppPurchase);
+			//bug: projCapability.AddAppGroups(null);
+			//bug: projCapability.AddHealthKit();
+            //bug: projCapability.AddiCloud(true, true, true, true, null);
+			//bug:projCapability.AddKeychainSharing(new string[]{"com.star.StarUnityTest"});
+			projCapability.AddBackgroundModes(Users.Custom.BackgroundModesOptions.BackgroundFetch);
+            projCapability.WriteToFile();
+			
+
+			//Build Phases
 			pbxProj.AddFrameworkToProject(targetGuid, "CoreBluetooth.framework", true);
 			pbxProj.AddFrameworkToProject(targetGuid, "GLKit.framework", true);
 			pbxProj.AddFrameworkToProject(targetGuid, "AudioToolbox.framework", true);
@@ -76,8 +115,7 @@ namespace ThirdSDKPostBuilds
 			pbxProj.AddFrameworkToProject(targetGuid, "AVKit.framework", false);
 			pbxProj.AddFrameworkToProject(targetGuid, "JavaScriptCore.framework", false);
 			pbxProj.AddFrameworkToProject(targetGuid, "WatchConnectivity.framework", false);
-
-			//add embedded framework 
+			///Build Phases add embedded framework 
 		    pbxProj.SetBuildProperty (targetGuid,"LD_RUNPATH_SEARCH_PATHS", "$(inherited) @executable_path/Frameworks");
 			string defaultLocationInProj = "Frameworks/Plugins/iOS/EmbeddedFramework/";
 			string relativeCoreFrameworkPath = "";
@@ -87,11 +125,10 @@ namespace ThirdSDKPostBuilds
 				 relativeCoreFrameworkPath = Path.Combine(defaultLocationInProj, frameworkName);
 				AddDynamicFrameworks (ref pbxProj,targetGuid,relativeCoreFrameworkPath);
 			}
-			
-			//add run script
+			///Build Phases add run script
 			pbxProj.AppendShellScriptBuildPhase(targetGuid,"Run Script copy_test.sh","/bin/sh","./../Assets/Editor/copy_test.sh");
 			Debug.Log("copy_test completed!");
-			//add .dylib
+			///Build Phases add .dylib
 			pbxProj.AddFileToBuild(targetGuid, pbxProj.AddFile("usr/lib/libresolv.dylib", "Frameworks/libresolv.dylib", Users.Custom.PBXSourceTree.Sdk));
 			pbxProj.AddFileToBuild(targetGuid, pbxProj.AddFile("usr/lib/libsqlite3.0.dylib", "Frameworks/libsqlite3.0.dylib", Users.Custom.PBXSourceTree.Sdk));
 			pbxProj.AddFileToBuild(targetGuid, pbxProj.AddFile("usr/lib/libz.dylib", "Frameworks/libz.dylib", Users.Custom.PBXSourceTree.Sdk));
@@ -101,9 +138,8 @@ namespace ThirdSDKPostBuilds
 			pbxProj.AddFileToBuild(targetGuid, pbxProj.AddFile("usr/lib/libc++.dylib", "Frameworks/libc++.dylib", Users.Custom.PBXSourceTree.Sdk));
 			pbxProj.AddFileToBuild(targetGuid, pbxProj.AddFile("usr/lib/libsqlite3.dylib", "Frameworks/libsqlite3.dylib", Users.Custom.PBXSourceTree.Sdk));
 			pbxProj.AddFileToBuild(targetGuid, pbxProj.AddFile("usr/lib/libxml2.2.dylib", "Frameworks/libxml2.2.dylib", Users.Custom.PBXSourceTree.Sdk));
-			//build settings
-			pbxProj.AddBuildProperty(targetGuid, "OTHER_LDFLAGS", "-ObjC");
-            pbxProj.WriteToFile(projPath);
+            //completed!
+			pbxProj.WriteToFile(projPath);
             Debug.Log(" OnPostProcessBuild success!");
 		}
 
