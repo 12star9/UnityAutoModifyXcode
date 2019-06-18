@@ -10,7 +10,18 @@ using System.IO;
 using System.Linq;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
 
+
+// using System;
+// using UnityEngine;
+// using UnityEditor;
+// using UnityEditor.Callbacks;
+// using System.Collections.Generic;
+// using System.Xml;
+// using System.Linq;
+// using System.IO;
+// using System.Diagnostics;
 
 
 namespace ThirdSDKPostBuilds
@@ -22,10 +33,10 @@ namespace ThirdSDKPostBuilds
 		static void OnPostProcessBuild (BuildTarget target, string pathToBuiltProject)
 		{
 			if (target.ToString()=="iPhone"||target.ToString()=="iOS") {
-				Debug.Log("Start Xcode project related configuration of SDK......");
-				Debug.Log(pathToBuiltProject);
+				UnityEngine.Debug.Log("Start Xcode project related configuration of SDK......");
+				UnityEngine.Debug.Log(pathToBuiltProject);
 				EditProj(pathToBuiltProject);
-				Debug.Log("Complete the Xcode project configuration of the SDK！");
+				UnityEngine.Debug.Log("Complete the Xcode project configuration of the SDK！");
 			}
 		}
 		#endif
@@ -49,7 +60,7 @@ namespace ThirdSDKPostBuilds
 			IEnumerable<string> configNames=pbxProj.BuildConfigNames();
 			foreach(var configName in configNames)
 			{
-				Debug.Log("configNames:"+configName);
+				UnityEngine.Debug.Log("configNames:"+configName);
 				string configGuid=pbxProj.BuildConfigByName(targetGuid,configName);
 				string code_sign_identity="iPhone Developer: nanxing liao (H6KAK88X9G)";
 				string provision_profile_name = "StarUnityTest_Dev_ProvisioningProfile";
@@ -127,7 +138,7 @@ namespace ThirdSDKPostBuilds
 			}
 			///Build Phases add run script
 			pbxProj.AppendShellScriptBuildPhase(targetGuid,"Run Script copy_test.sh","/bin/sh","./../Assets/Editor/copy_test.sh");
-			Debug.Log("copy_test completed!");
+			UnityEngine.Debug.Log("copy_test completed!");
 			///Build Phases add .dylib
 			pbxProj.AddFileToBuild(targetGuid, pbxProj.AddFile("usr/lib/libresolv.dylib", "Frameworks/libresolv.dylib", Users.Custom.PBXSourceTree.Sdk));
 			pbxProj.AddFileToBuild(targetGuid, pbxProj.AddFile("usr/lib/libsqlite3.0.dylib", "Frameworks/libsqlite3.0.dylib", Users.Custom.PBXSourceTree.Sdk));
@@ -140,7 +151,35 @@ namespace ThirdSDKPostBuilds
 			pbxProj.AddFileToBuild(targetGuid, pbxProj.AddFile("usr/lib/libxml2.2.dylib", "Frameworks/libxml2.2.dylib", Users.Custom.PBXSourceTree.Sdk));
             //completed!
 			pbxProj.WriteToFile(projPath);
-            Debug.Log(" OnPostProcessBuild success!");
+
+
+			var scriptPath = Path.Combine( Application.dataPath, "Editor/OpenXcode.py" );
+			// sanity check
+			
+			UnityEngine.Debug.Log(" scriptPath: "+scriptPath);
+			if( !File.Exists( scriptPath ) ) {
+				UnityEngine.Debug.LogError("OpenXcode.py not exist!");
+				return;
+			} else {
+				var args = string.Format( "\"{0}\" \"{1}\"", scriptPath,pathToBuiltProject+"/Unity-iPhone.xcodeproj" );
+				var proc = new System.Diagnostics.Process
+				{
+					StartInfo = new System.Diagnostics.ProcessStartInfo
+					{
+						FileName = "python",
+						Arguments = args,
+						UseShellExecute = false,
+						RedirectStandardOutput = false,
+						CreateNoWindow = true
+					}
+				};
+				proc.Start();
+				proc.WaitForExit();
+				if (proc.ExitCode > 0) {
+					UnityEngine.Debug.LogError(" post-build OpenXcode.py script had an error(code=" + proc.ExitCode);
+				}
+			}
+            UnityEngine.Debug.Log(" OnPostProcessBuild success!");
 		}
 
         static void EditInfoPlist(string filePath)
@@ -189,7 +228,7 @@ namespace ThirdSDKPostBuilds
 		{
 			string relativeCoreFrameworkPath = embeddedFrameworkRelativePath;
 			project.AddDynamicFrameworkToProject(target, relativeCoreFrameworkPath);
-			Debug.Log("Dynamic Frameworks added to Embedded binaries.");
+			UnityEngine.Debug.Log("Dynamic Frameworks added to Embedded binaries.");
 		}
 		
 
@@ -202,7 +241,7 @@ namespace ThirdSDKPostBuilds
 		{
 			filePath = fPath;
 			if( !System.IO.File.Exists( filePath ) ) {
-				Debug.LogError( filePath +"The file does not exist under the path!" );
+				UnityEngine.Debug.LogError( filePath +"The file does not exist under the path!" );
 				return;
 			}
 		}
