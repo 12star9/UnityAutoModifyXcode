@@ -1,0 +1,39 @@
+﻿/* Begin PBXFrameworksBuildPhase section */
+		1 D60588F0D05DD3D006BFB54 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5 BAD78611F2B5A59006103DE /* Security.framework in Frameworks */ ,
+				960391221 D6CE46E003BF157 /* MediaToolbox.framework in Frameworks */ ,
+				00000000008063 A1000160D3 /* libiPhone-lib.a in Frameworks */ ,
+				AA5D99871AFAD3C800B27605 /* CoreText.framework in Frameworks */ ,
+				8358 D1B80ED1CC3700E3A684 /* AudioToolbox.framework in Frameworks */ ,
+				7 F36C11313C5C673007FBDD9 /* AVFoundation.framework in Frameworks */ ,
+				8 A20382D213D4B3C005E6C56 /* AVKit.framework in Frameworks */ ,
+				56 FD43960ED4745200FE3770 /* CFNetwork.framework in Frameworks */ ,
+				56 B7959B1442E0F20026B3DD /* CoreGraphics.framework in Frameworks */ ,
+				7 F36C11113C5C673007FBDD9 /* CoreMedia.framework in Frameworks */ ,
+				56 B7960F1442E1770026B3DD /* CoreMotion.framework in Frameworks */ ,
+				7 F36C11213C5C673007FBDD9 /* CoreVideo.framework in Frameworks */ ,
+				1 D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */ ,
+				83 B2574C0E63022200468741 /* OpenAL.framework in Frameworks */ ,
+				83 B256E20E62FEA000468741 /* OpenGLES.framework in Frameworks */ ,
+				83 B2570B0E62FF8A00468741 /* QuartzCore.framework in Frameworks */ ,
+				56 BCBA390FCF049A0030C3B2 /* SystemConfiguration.framework in Frameworks */ ,
+				830 B5C110E5ED4C100C7819F /* UIKit.framework in Frameworks */ ,
+				83 B2574F0E63025400468741 /* libiconv.2.dylib in Frameworks */ ,
+				BC144A18866315F16CA35F3C /* libil2cpp.a in Frameworks */ ,
+				5833427 FA72415AF1AB69F85 /* Metal.framework in Frameworks */ ,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5623 C57017FDCB0800090B9E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5623 C57717FDCB0800090B9E /* UIKit.framework in Frameworks */ ,
+				5623 C57617FDCB0800090B9E /* Foundation.framework in Frameworks */ ,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		/* End PBXFrameworksBuildPhase section */

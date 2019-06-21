@@ -10,7 +10,7 @@ namespace UnityEditor.iOS.Xcode
 namespace Users.Custom
 #endif
 {
-    internal class PBXPath
+    public class PBXPath
     {
         /// Replaces '\' with '/'. We need to apply this function to all paths that come from the user
         /// of the API because we store paths to pbxproj and on windows we may get path with '\' slashes

@@ -1,0 +1,10 @@
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\obj\Debug\TestApplication.csprojResolveAssemblyReference.cache
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\obj\Debug\TestApplication.Properties.Resources.resources
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\obj\Debug\TestApplication.csproj.GenerateResource.Cache
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\bin\Debug\TestApplication.exe
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\bin\Debug\TestApplication.pdb
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\bin\Debug\UnityAutoModifyXcode.dll
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\bin\Debug\UnityAutoModifyXcode.pdb
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\obj\Debug\TestApplication.exe
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\obj\Debug\TestApplication.pdb
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\TestApplication\obj\Debug\TestApplication.Form1.resources

@@ -1,0 +1,7 @@
+﻿/* Begin PBXTargetDependency section */
+		5623 C58217FDCB0900090B9E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 1 D6058900D05DD3D006BFB54 /* Unity-iPhone */ ;
+			targetProxy = 5623 C58117FDCB0900090B9E /* PBXContainerItemProxy */ ;
+		};
+		/* End PBXTargetDependency section */

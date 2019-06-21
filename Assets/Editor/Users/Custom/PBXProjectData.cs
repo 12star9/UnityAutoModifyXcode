@@ -78,6 +78,7 @@ namespace Users.Custom
         // targetGuid is the guid of the target that contains the section that contains the buildFile
         public void BuildFilesAdd(string targetGuid, PBXBuildFileData buildFile)
         {
+            //找到对应的target
             if (!m_FileGuidToBuildFileMap.ContainsKey(targetGuid))
                 m_FileGuidToBuildFileMap[targetGuid] = new Dictionary<string, PBXBuildFileData>();
             m_FileGuidToBuildFileMap[targetGuid][buildFile.fileRef] = buildFile;
@@ -110,10 +111,13 @@ namespace Users.Custom
 
         public void FileRefsAdd(string realPath, string projectPath, PBXGroupData parent, PBXFileReferenceData fileRef)
         {
+            //PBXFileReference里加入新的PBXFileReferenceData文件引用数据。
             fileRefs.AddEntry(fileRef);
             m_ProjectPathToFileRefMap.Add(projectPath, fileRef);
             m_FileRefGuidToProjectPathMap.Add(fileRef.guid, projectPath);
             m_RealPathToFileRefMap[fileRef.tree].Add(realPath, fileRef); // FIXME
+
+            //加入新的Group数据
             m_GuidToParentGroupMap.Add(fileRef.guid, parent);
         }
 
@@ -124,6 +128,8 @@ namespace Users.Custom
 
         public PBXFileReferenceData FileRefsGetByRealPath(string path, PBXSourceTree sourceTree)
         {
+            //从PBXFileReference.txt中的数据取出对应的条目出来，从指定的key取出来。
+            //m_RealPathToFileRefMap里的每个字典加起来就是m_ProjectPathToFileRefMap
             if (m_RealPathToFileRefMap[sourceTree].ContainsKey(path))
                 return m_RealPathToFileRefMap[sourceTree][path];
             return null;
@@ -131,6 +137,7 @@ namespace Users.Custom
 
         public PBXFileReferenceData FileRefsGetByProjectPath(string path)
         {
+            //从PBXFileReference.txt中的数据取出对应的条目出来
             if (m_ProjectPathToFileRefMap.ContainsKey(path))
                 return m_ProjectPathToFileRefMap[path];
             return null;
@@ -162,10 +169,12 @@ namespace Users.Custom
             return groups[project.project.mainGroup];
         }
 
+        
         /// Returns the source group identified by sourceGroup. If sourceGroup is empty or null,
         /// root group is returned. If no group is found, null is returned.
         public PBXGroupData GroupsGetByProjectPath(string sourceGroup)
         {
+            ///从Xcode项目工程里获取指定的Group名称
             if (m_ProjectPathToGroupMap.ContainsKey(sourceGroup))
                 return m_ProjectPathToGroupMap[sourceGroup];
             return null;
@@ -198,6 +207,7 @@ namespace Users.Custom
         // Note that for unknown file types we add them to resource build sections
         public FileGUIDListBase BuildSectionAny(PBXNativeTargetData target, string path, bool isFolderRef)
         {
+            ///获取Build Phases中对应的子项
             string ext = Path.GetExtension(path);
             var phase = FileTypeUtils.GetFileType(ext, isFolderRef);
             switch (phase) {
@@ -557,6 +567,10 @@ namespace Users.Custom
         }
 
 
+        /// <summary>
+        /// 获取到最后需要写入的全部数据
+        /// </summary>
+        /// <returns></returns>
         public string WriteToString()
         {
             var commentMap = BuildCommentMap();

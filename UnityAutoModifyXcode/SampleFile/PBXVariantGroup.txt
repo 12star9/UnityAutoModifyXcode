@@ -1,0 +1,10 @@
+﻿	/* Begin PBXVariantGroup section */
+		5623 C57B17FDCB0900090B9E /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				5623 C57C17FDCB0900090B9E /* en */ ,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		/* End PBXVariantGroup section */

@@ -1,0 +1,35 @@
+﻿/* Begin XCConfigurationList section */
+		1 D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Unity-iPhone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1 D6058950D05DD3E006BFB54 /* Release */ ,
+				56E860841 D67581C00A1AB2B /* ReleaseForProfiling */ ,
+				56E860811 D6757FF00A1AB2B /* ReleaseForRunning */ ,
+				1 D6058940D05DD3E006BFB54 /* Debug */ ,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		5623 C58517FDCB0900090B9E /* Build configuration list for PBXNativeTarget "Unity-iPhone Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5623 C58317FDCB0900090B9E /* Release */ ,
+				56E860851 D67581C00A1AB2B /* ReleaseForProfiling */ ,
+				56E860821 D6757FF00A1AB2B /* ReleaseForRunning */ ,
+				5623 C58417FDCB0900090B9E /* Debug */ ,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Unity-iPhone" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C01FCF5008A954540054247B /* Release */ ,
+				56E860831 D67581C00A1AB2B /* ReleaseForProfiling */ ,
+				56E860801 D6757FF00A1AB2B /* ReleaseForRunning */ ,
+				C01FCF4F08A954540054247B /* Debug */ ,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		/* End XCConfigurationList section */

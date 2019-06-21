@@ -229,6 +229,10 @@ namespace Users.Custom.PBX
         }
     }
     
+    /// <summary>
+    /// 用来描述PBXFileReference每一个条目的数据信息
+    /// 例如 isa = PBXFileReference;lastKnownFileType = sourcecode.cpp.cpp;name = Il2CppCompilerCalculateTypeValues_13Table.cpp;path = Classes / Native / Il2CppCompilerCalculateTypeValues_13Table.cpp;sourceTree = SOURCE_ROOT;
+    /// </summary>
     internal class PBXFileReferenceData : PBXObjectData
     {
         string m_Path = null;

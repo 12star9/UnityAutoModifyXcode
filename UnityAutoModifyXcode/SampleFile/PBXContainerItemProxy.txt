@@ -1,0 +1,9 @@
+﻿/* Begin PBXContainerItemProxy section */
+		5623 C58117FDCB0900090B9E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 29 B97313FDCFA39411CA2CEA /* Project object */ ;
+			proxyType = 1;
+			remoteGlobalIDString = 1 D6058900D05DD3D006BFB54;
+			remoteInfo = "Unity-iPhone";
+		};
+		/* End PBXContainerItemProxy section */

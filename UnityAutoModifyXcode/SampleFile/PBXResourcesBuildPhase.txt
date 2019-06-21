@@ -1,0 +1,24 @@
+﻿/* Begin PBXResourcesBuildPhase section */
+		1 D60588D0D05DD3D006BFB54 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA31BF971B55660D0013FB1B /* Data in Resources */ ,
+				56 C56C9817D6015200616839 /* Images.xcassets in Resources */ ,
+				052 C4624B5E5B86D3A714B97 /* LaunchScreen-iPhone.xib in Resources */ ,
+				901240 BBBCB1CF8E2FDB914F /* LaunchScreen-iPhonePortrait.png in Resources */ ,
+				BEF643EBA218808539559FF4 /* LaunchScreen-iPhoneLandscape.png in Resources */ ,
+				118 A46D0B63293D2F397769A /* LaunchScreen-iPad.xib in Resources */ ,
+				2 D9A4CEFB15E6A7AB163FA5B /* LaunchScreen-iPad.png in Resources */ ,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5623 C57117FDCB0800090B9E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				5623 C57D17FDCB0900090B9E /* InfoPlist.strings in Resources */ ,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		/* End PBXResourcesBuildPhase section */

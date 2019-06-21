@@ -1,0 +1,36 @@
+﻿/* Begin PBXNativeTarget section */
+		1 D6058900D05DD3D006BFB54 /* Unity-iPhone */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1 D6058960D05DD3E006BFB54 /* Build configuration list for PBXNativeTarget "Unity-iPhone" */ ;
+			buildPhases = (
+				1 D60588D0D05DD3D006BFB54 /* Resources */ ,
+				83 D0C1FD0E6C8D7700EBCE5D /* CopyFiles */ ,
+				1 D60588E0D05DD3D006BFB54 /* Sources */ ,
+				1 D60588F0D05DD3D006BFB54 /* Frameworks */ ,
+				033966 F41B18B03000ECD701 /* ShellScript */ ,
+			);
+			buildRules = ();
+			dependencies = ();
+			name = "Unity-iPhone";
+			productName = "iPhone-target";
+			productReference = 1 D6058910D05DD3D006BFB54 /* ProductName.app */ ;
+			productType = "com.apple.product-type.application";
+		};
+		5623 C57217FDCB0800090B9E /* Unity-iPhone Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5623 C58517FDCB0900090B9E /* Build configuration list for PBXNativeTarget "Unity-iPhone Tests" */ ;
+			buildPhases = (
+				5623 C56F17FDCB0800090B9E /* Sources */ ,
+				5623 C57017FDCB0800090B9E /* Frameworks */ ,
+				5623 C57117FDCB0800090B9E /* Resources */ ,
+			);
+			buildRules = ();
+			dependencies = (
+				5623 C58217FDCB0900090B9E /* PBXTargetDependency */ ,
+			);
+			name = "Unity-iPhone Tests";
+			productName = "Unity-iPhone Tests";
+			productReference = 5623 C57317FDCB0800090B9E /* Unity-iPhone Tests.xctest */ ;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		/* End PBXNativeTarget section */

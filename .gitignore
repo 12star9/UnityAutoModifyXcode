@@ -1,15 +1,15 @@
 */.DS_Store
 */.meta
+.DS_Store
+.meta
+
 
 # This .gitignore file should be placed at the root of your Unity project directory
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
-/[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
-/[Bb]uild/
-/[Bb]uilds/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
 
@@ -36,7 +36,6 @@ ExportedObj/
 .consulo/
 *.csproj
 *.unityproj
-*.sln
 *.suo
 *.tmp
 *.user
@@ -58,8 +57,7 @@ ExportedObj/
 sysinfo.txt
 
 # Builds
-*.apk
-*.unitypackage
+
 
 # Crashlytics generated file
 crashlytics-build.properties

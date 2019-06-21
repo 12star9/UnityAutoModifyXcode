@@ -1,0 +1,4 @@
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\UnityAutoModifyXcode\bin\Debug\UnityAutoModifyXcode.dll
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\UnityAutoModifyXcode\bin\Debug\UnityAutoModifyXcode.pdb
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\UnityAutoModifyXcode\obj\Debug\UnityAutoModifyXcode.dll
+E:\Users\star\Desktop\Git\UnityAutoModifyXcode\UnityAutoModifyXcode\obj\Debug\UnityAutoModifyXcode.pdb

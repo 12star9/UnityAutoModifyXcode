@@ -1,0 +1,13 @@
+﻿/* Begin PBXShellScriptBuildPhase section */
+		033966 F41B18B03000ECD701 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = ();
+			inputPaths = ();
+			outputPaths = ();
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = ""
+			$PROJECT_DIR / MapFileParser.sh "\n";
+		};
+		/* End PBXShellScriptBuildPhase section */

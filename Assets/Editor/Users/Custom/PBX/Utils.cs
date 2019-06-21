@@ -10,6 +10,8 @@ namespace UnityEditor.iOS.Xcode.PBX
 namespace Users.Custom.PBX
 #endif
 {
+
+    
     internal class GUIDToCommentMap
     {
         private Dictionary<string, string> m_Dict = new Dictionary<string, string>();
@@ -301,7 +303,7 @@ namespace Users.Custom.PBX
         internal static List<PBXSourceTree> AllAbsoluteSourceTrees()
         {
             return new List<PBXSourceTree>{PBXSourceTree.Absolute, PBXSourceTree.Build,
-                                           PBXSourceTree.Developer, PBXSourceTree.Sdk, PBXSourceTree.Source};
+                                           PBXSourceTree.Developer, PBXSourceTree.Sdk, PBXSourceTree.Source,PBXSourceTree.Group};
         }
     }
 

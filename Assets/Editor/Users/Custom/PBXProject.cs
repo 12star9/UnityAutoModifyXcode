@@ -85,6 +85,13 @@ namespace Users.Custom
         internal FileGUIDListBase BuildSectionAny(PBXNativeTargetData target, string path, bool isFolderRef) { return m_Data.BuildSectionAny(target, path, isFolderRef); }
         internal FileGUIDListBase BuildSectionAny(string sectionGuid) { return m_Data.BuildSectionAny(sectionGuid); }
 
+        /*
+        public static XCBuildConfigurationSection GetbuildConfigs()
+        {
+            return m_Data.buildConfigs;
+        }
+        */
+        
         /// <summary>
         /// Returns the path to PBX project in the given Unity build path. This function can only 
         /// be used in Unity-generated projects
@@ -166,25 +173,39 @@ namespace Users.Custom
         }
 
         // The same file can be referred to by more than one project path.
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="path">目标文件相对于Xcode工程的相对路径</param>
+        /// <param name="projectPath">Xcode项目工程路径</param>
+        /// <param name="tree"></param>
+        /// <param name="isFolderReference"></param>
+        /// <returns></returns>
         private string AddFileImpl(string path, string projectPath, PBXSourceTree tree, bool isFolderReference)
         {
+            //转路径
             path = PBXPath.FixSlashes(path);
             projectPath = PBXPath.FixSlashes(projectPath);
 
             if (!isFolderReference && Path.GetExtension(path) != Path.GetExtension(projectPath))
                 throw new Exception("Project and real path extensions do not match");
 
+            //获取文件guid，在pbxproj文件中的每一个添加进去的build文件都具有唯一的guid值。
             string guid = FindFileGuidByProjectPath(projectPath);
             if (guid == null)
                 guid = FindFileGuidByRealPath(path);
             if (guid == null)
             {
+
                 PBXFileReferenceData fileRef;
+                //创建一个新的PBXFileReference条目出来
+
                 if (isFolderReference)
                     fileRef = PBXFileReferenceData.CreateFromFolderReference(path, PBXPath.GetFilename(projectPath), tree);
                 else
                     fileRef = PBXFileReferenceData.CreateFromFile(path, PBXPath.GetFilename(projectPath), tree);
                 PBXGroupData parent = CreateSourceGroup(PBXPath.GetDirectory(projectPath));
+                //创建或返回一个Group,往里面加入guid
                 parent.children.AddGUID(fileRef.guid);
                 FileRefsAdd(path, projectPath, parent, fileRef);
                 guid = fileRef.guid;
@@ -204,8 +225,8 @@ namespace Users.Custom
         /// The [[PBXSourceTree.Group]] tree is not supported.</param>
         public string AddFile(string path, string projectPath, PBXSourceTree sourceTree = PBXSourceTree.Source)
         {
-            if (sourceTree == PBXSourceTree.Group)
-                throw new Exception("sourceTree must not be PBXSourceTree.Group");
+            //if (sourceTree == PBXSourceTree.Group)
+            //    throw new Exception("sourceTree must not be PBXSourceTree.Group");
             return AddFileImpl(path, projectPath, sourceTree, false);
         }
 
@@ -221,12 +242,12 @@ namespace Users.Custom
         /// The [[PBXSourceTree.Group]] tree is not supported.</param>
         public string AddFolderReference(string path, string projectPath, PBXSourceTree sourceTree = PBXSourceTree.Source)
         {
-            if (sourceTree == PBXSourceTree.Group)
-                throw new Exception("sourceTree must not be PBXSourceTree.Group");
+            //if (sourceTree == PBXSourceTree.Group)
+            //    throw new Exception("sourceTree must not be PBXSourceTree.Group");
             return AddFileImpl(path, projectPath, sourceTree, true);
         }
 
-        private void AddBuildFileImpl(string targetGuid, string fileGuid, bool weak, string compileFlags)
+        public void AddBuildFileImpl(string targetGuid, string fileGuid, bool weak, string compileFlags)
         {
             PBXNativeTargetData target = nativeTargets[targetGuid];
             PBXFileReferenceData fileRef = FileRefsGet(fileGuid);
@@ -236,6 +257,7 @@ namespace Users.Custom
             if (FileTypeUtils.IsBuildable(ext, fileRef.isFolderReference) &&
                 BuildFilesGetForSourceFile(targetGuid, fileGuid) == null)
             {
+                //往对应的target里加入build的文件
                 PBXBuildFileData buildFile = PBXBuildFileData.CreateFromFile(fileGuid, weak, compileFlags);
                 BuildFilesAdd(targetGuid, buildFile);
                 BuildSectionAny(target, ext, fileRef.isFolderReference).files.AddGUID(buildFile.guid);
@@ -426,8 +448,8 @@ namespace Users.Custom
         /// <param name="sourceTree">The source tree path is relative to. The [[PBXSourceTree.Group]] tree is not supported.</param>
         public bool ContainsFileByRealPath(string path, PBXSourceTree sourceTree)
         {
-            if (sourceTree == PBXSourceTree.Group)
-                throw new Exception("sourceTree must not be PBXSourceTree.Group");
+            //if (sourceTree == PBXSourceTree.Group)
+            //    throw new Exception("sourceTree must not be PBXSourceTree.Group");
             return FindFileGuidByRealPath(path, sourceTree) != null;
         }
 
@@ -551,8 +573,8 @@ namespace Users.Custom
         /// <param name="sourceTree">The source tree path is relative to. The [[PBXSourceTree.Group]] tree is not supported.</param>
         public string FindFileGuidByRealPath(string path, PBXSourceTree sourceTree)
         {
-            if (sourceTree == PBXSourceTree.Group)
-                throw new Exception("sourceTree must not be PBXSourceTree.Group");
+            //if (sourceTree == PBXSourceTree.Group)
+            //    throw new Exception("sourceTree must not be PBXSourceTree.Group");
             path = PBXPath.FixSlashes(path);
             var fileRef = FileRefsGetByRealPath(path, sourceTree);
             if (fileRef != null)
@@ -572,6 +594,7 @@ namespace Users.Custom
 
             foreach (var tree in FileTypeUtils.AllAbsoluteSourceTrees())
             {
+                //
                 string res = FindFileGuidByRealPath(path, tree);
                 if (res != null)
                     return res;
@@ -1314,7 +1337,7 @@ namespace Users.Custom
             return null;
         }
 
-        internal void AppendShellScriptBuildPhase(string targetGuid, string name, string shellPath, string shellScript)
+        public void AppendShellScriptBuildPhase(string targetGuid, string name, string shellPath, string shellScript)
         {
             PBXShellScriptBuildPhaseData shellScriptPhase = PBXShellScriptBuildPhaseData.Create(name, shellPath, shellScript);
 
@@ -1322,7 +1345,7 @@ namespace Users.Custom
             nativeTargets[targetGuid].phases.AddGUID(shellScriptPhase.guid);
         }
 
-        internal void AppendShellScriptBuildPhase(IEnumerable<string> targetGuids, string name, string shellPath, string shellScript)
+        public void AppendShellScriptBuildPhase(IEnumerable<string> targetGuids, string name, string shellPath, string shellScript)
         {
             PBXShellScriptBuildPhaseData shellScriptPhase = PBXShellScriptBuildPhaseData.Create(name, shellPath, shellScript);
 
@@ -1359,7 +1382,7 @@ namespace Users.Custom
             sw.Write(WriteToString());
         }
 
-        public string WriteToString()
+        public string WriteToString()   
         {
             return m_Data.WriteToString();
         }
@@ -1430,14 +1453,17 @@ namespace Users.Custom
         //TODO: test embed framework file ...
 
 
-        public void AddDynamicFrameworkToProject(string targetGuid, string frameworkPathInProject)
+        public void AddDynamicFrameworkToProject(string targetGuid, string frameworkPathInProject,string projectPath)
         {
             var fileGuid = FindFileGuidByProjectPath(frameworkPathInProject);
             if (fileGuid == null)
             {
                 //Debug.LogError("Framework not found: " + frameworkPathInProject);
-                return;
+                fileGuid = AddFileImpl(frameworkPathInProject, projectPath, PBXSourceTree.Group, false);
             }
+
+           
+
             // add file reference as embed framework
             PBXBuildFileData embedFrameworkFileData = PBXBuildFileData.CreateFromFile(fileGuid, false, "");
 			embedFrameworkFileData.codeSignOnCopy = true;
@@ -1450,6 +1476,13 @@ namespace Users.Custom
             // add "Embed Frameworks" section to "Build phases"
             PBXNativeTargetData target = nativeTargets[targetGuid];
             target.phases.AddGUID(embedFrameworksSection.guid);
+
+
+            PBXFileReferenceData fileRef;
+            fileRef = PBXFileReferenceData.CreateFromFile(frameworkPathInProject, PBXPath.GetFilename(projectPath), PBXSourceTree.Group);
+            PBXGroupData parent = CreateSourceGroup(PBXPath.GetDirectory(projectPath));
+            //parent.children.AddGUID(fileRef.guid);
+            //FileRefsAdd(frameworkPathInProject, projectPath, parent, fileRef);
         }
 
     }
