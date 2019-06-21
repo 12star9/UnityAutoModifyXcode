@@ -12,6 +12,7 @@ namespace TestApplication
 {
     public partial class Form1 : Form
     {
+        //这里测试输出的project_output.pbxproj文件覆盖到Xcode源工程文件，必须保证Xcode工程文件跟其他文件的相对路径跟下面定义的相对路径是一样的!!!!
         private string xcodePath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/Build/iOS/";
         private string pbxProjectPath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/Build/iOS/Unity-iPhone.xcodeproj/project.pbxproj";
         private string output_pbxProjectPath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/Build/iOS/Unity-iPhone.xcodeproj/project_output.pbxproj";
