@@ -28,26 +28,22 @@ namespace ThirdSDKPostBuilds
 {
 	public class UserOnPostBuild: MonoBehaviour
 	{
-        //Xcode工程的build全路径
-        private string xcodePath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/Build/iOS/";
-        //Unity-iPhone.xcodeproj/project.pbxproj的全路径
-        private string pbxProjectPath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/Build/iOS/Unity-iPhone.xcodeproj/project.pbxproj";
         //需要添加到Build Phases/Copy Bundle Resources中的文件夹的全路径
-        private string folderResourcePath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/bundle";
+        private static string folderResourcePath = "/Users/star.liao/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/bundle";
         //需要添加到Build Phases/Link Binary With Libraries中的框架的全路径
-        private string frameworkPath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/EmbeddedFramework1.framework";
+        private static string frameworkPath = "/Users/star.liao/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/EmbeddedFramework1.framework";
         //需要添加到Build Phases/Embed Frameworks中的框架的全路径
-        private string dynamicFrameworkPath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/EmbeddedFramework/EmbeddedFramework2.framework";
+        private static string dynamicFrameworkPath = "/Users/star.liao/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/EmbeddedFramework/EmbeddedFramework2.framework";
         //需要添加到Build Phases/Compile Sources中的代码文件的全路径
-        private string compileFilePath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/CDataScanner.m";
+        private static string compileFilePath = "/Users/star.liao/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/CDataScanner.m";
         //需要添加到Build Phases/Run Script中的脚本文件的全路径
-        private string shellFilePath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/copy_test.sh";
+        private static string shellFilePath = "/Users/star.liao/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/copy_test.sh";
         //需要添加到Build Phases/Link Binary With Libraries中的静态库的全路径
-        private string staticLibraryPath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/test.a";
+        private static string staticLibraryPath = "/Users/star.liao/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/test.a";
         //需要添加到Build Phases/Copy Bundle Resources中的资源图片的全路径
-        private string fileResourcePath = "E:/Users/star/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/test.png";
+        private static string fileResourcePath = "/Users/star.liao/Desktop/Git/UnityAutoModifyXcode/SDK_FILES/test.png";
 
-        private CustomXCodeAPI xcodeInstance = new CustomXCodeAPI();
+        
 		#if UNITY_EDITOR && UNITY_IOS
 		[PostProcessBuild( 900 )]
 		static void OnPostProcessBuild (BuildTarget target, string pathToBuiltProject)
@@ -63,14 +59,16 @@ namespace ThirdSDKPostBuilds
 
 		static void EditProj(string pathToBuiltProject)
 		{
-
-            xcodeInstance.InitPbxProject(pathToBuiltProject);
+			Users.Custom.CustomXCodeAPI xcodeInstance = new Users.Custom.CustomXCodeAPI();
+			UnityEngine.Debug.Log("xcode path: "+pathToBuiltProject);
+            xcodeInstance.InitPbxProject(pathToBuiltProject+"/");
 
             xcodeInstance.UpdateBuildSettingsSample();
             xcodeInstance.UpdateCapabilitiesSample();
             xcodeInstance.UpdateSystemFrameworkSample();
             List<string> list = new List<string>();
             list.Add("-fno-objc-arc");
+			
             xcodeInstance.AddComplieFileFromCustomPath(compileFilePath, list);
             xcodeInstance.AddDynamicFrameworkFromCustomPath(dynamicFrameworkPath);
             xcodeInstance.AddFileResourceFromCustomPath(fileResourcePath);
