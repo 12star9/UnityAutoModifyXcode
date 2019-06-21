@@ -23,11 +23,13 @@ Unity5.X开始针对Xcode工程提供了自动修改工程相关配置的API方�
 8.build后自动打开XCode工程.
 
 
+附上XCode测试工程文件：https://pan.baidu.com/s/1k7zu1PD16uxm4m3UBy7yNg 提取码: vkd9
+
+
 
 
 
 
 
 **🙏   https://bitbucket.org/Unity-Technologies/xcodeapi/src/stable/**
-
 
