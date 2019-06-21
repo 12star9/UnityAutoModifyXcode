@@ -2,6 +2,7 @@
 */.meta
 .DS_Store
 .meta
+Assets/Editor/*.meta
 
 
 # This .gitignore file should be placed at the root of your Unity project directory
@@ -12,6 +13,8 @@
 /[Oo]bj/
 /[Ll]ogs/
 /[Mm]emoryCaptures/
+Library/
+Packages/
 
 # Never ignore Asset meta data
 !/[Aa]ssets/**/*.meta
